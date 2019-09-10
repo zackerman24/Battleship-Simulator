@@ -7,6 +7,7 @@ Created on Wed Sep  4 20:12:40 2019
 """
 
 import numpy as np
+import game_setup as gs
 
 """There's probably a way of creating six separate lists for each letter
     and then combining them into one array. Look into this after?"""
@@ -23,10 +24,11 @@ player_two_ships_array = np.copy(base_array)
 
 print(player_one_ships_array)
 
-battleship_coord = input(("Enter four adjacent coordinates for your battleship"
+battleship_coord = input(("\nEnter four adjacent coordinates for your battleship"
                          ", separated by a space: "))
 
 battleship_coord = battleship_coord.split()
+print(len(battleship_coord))
 
 """If Battleship_Coord has a length different than 4, re-do it"""
 
@@ -38,15 +40,17 @@ for coord in battleship_coord:
     battleship_search.append(place)
 
 print(battleship_search)
-print(battleship_search[1])
+print(battleship_search[0])
 
-pair = battleship_search[1]
+pair = battleship_search[0]
 
 pair_2 = pair[0]
 
 player_one_ships_array[pair_2[0],pair_2[1]] = 'X'
 
 print(player_one_ships_array)
+
+gs.create_battleship(base_array,player_one_ships_array)
 
 """
 Ships will be represented in each player's array as X's
