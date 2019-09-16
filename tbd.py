@@ -21,36 +21,12 @@ base_array = np.array([['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
 
 player_one_ships_array = np.copy(base_array)
 player_two_ships_array = np.copy(base_array)
+player_one_placements = []
+player_two_placements = []
 
-print(player_one_ships_array)
+gs.create_battleship(base_array,player_one_ships_array,player_one_placements)
 
-battleship_coord = input(("\nEnter four adjacent coordinates for your battleship"
-                         ", separated by a space: "))
-
-battleship_coord = battleship_coord.split()
-print(len(battleship_coord))
-
-"""If Battleship_Coord has a length different than 4, re-do it"""
-
-battleship_search = []
-
-for coord in battleship_coord:
-    spot = np.where(base_array == coord)
-    place = list(zip(spot[0],spot[1]))
-    battleship_search.append(place)
-
-print(battleship_search)
-print(battleship_search[0])
-
-pair = battleship_search[0]
-
-pair_2 = pair[0]
-
-player_one_ships_array[pair_2[0],pair_2[1]] = 'X'
-
-print(player_one_ships_array)
-
-gs.create_battleship(base_array,player_one_ships_array)
+print(player_one_placements)
 
 """
 Ships will be represented in each player's array as X's
