@@ -24,9 +24,16 @@ player_two_ships_array = np.copy(base_array)
 player_one_placements = []
 player_two_placements = []
 
-gs.create_battleship(base_array,player_one_ships_array,player_one_placements)
+print("At any point in play, enter 'Exit' to exit the game.")
+
+print("Player One select first.")
+gs.create_ships(base_array,player_one_ships_array,player_one_placements)
+
+print("Player Two now selects.")
+gs.create_ships(base_array,player_two_ships_array,player_two_placements)
 
 print(player_one_placements)
+print(player_two_placements)
 
 """
 Ships will be represented in each player's array as X's
