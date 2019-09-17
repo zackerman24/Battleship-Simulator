@@ -125,12 +125,16 @@ def create_ships(game_array, player_array, player_placements):
     create_cruiser(game_array, player_array, player_placements)
     create_destroyer(game_array, player_array, player_placements)
     
-def player_move(game_array, player_array, opponent_array, opponent_placements):
+def player_move(game_array, opponent_array, opponent_placements):
     """Allows a player to enter an attack coordinate."""
     
     attack = input("\nEnter the coordinate you'd like to attack:")
     
-    if opponent_placements.index(attack).isdigit():
+    if attack == "Exit":
+        exit()
+    
+
+    if opponent_placements.index(attack) in range(0,20):
         raw_spot = np.where(game_array == attack)
         spot = list(zip(raw_spot[0],raw_spot[1]))
         attack_coordinate = spot[0]
@@ -149,5 +153,7 @@ def player_move(game_array, player_array, opponent_array, opponent_placements):
             print("The game will now shutdown.")
             exit()
         else:
-            print("Your opponent only has" + len(opponent_placements) + " spots left.")
-        
+            print("Your opponent only has" + str(len(opponent_placements)) + " spots left.")
+    
+    else:
+        print("Oops! Your attack did not strike any ships.")

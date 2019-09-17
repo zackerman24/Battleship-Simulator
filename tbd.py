@@ -34,7 +34,22 @@ print("\nPlayer Two now selects. Place coordinates on your map.")
 print(player_two_ships_array)
 gs.create_ships(base_array,player_two_ships_array,player_two_placements)
 
+while True:
+    print("\nPlayer One's turn.")
+    gs.player_move(base_array,player_two_ships_array,player_two_placements)
+    print("\nPlayer Two's turn.")
+    gs.player_move(base_array,player_one_ships_array,player_one_placements)
+    
+    if not player_one_placements:
+        break
+    
+    elif not player_two_placements:
+        break
+    
+    else:
+        continue
 
+exit()
 
 """
 Ships will be represented in each player's array as X's
