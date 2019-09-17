@@ -84,7 +84,7 @@ def create_cruiser(game_array, player_array, player_placements):
     print(player_array)
 
 def create_destroyer(game_array, player_array, player_placements):
-    """Creates a user's 2-coordinate long cruiser."""
+    """Creates a user's 2-coordinate long destroyer."""
     
     coordinates = input(("\nEnter two adjacent coordinates for your Destroyer"
                          ", separated by a space: "))
@@ -95,7 +95,7 @@ def create_destroyer(game_array, player_array, player_placements):
         if coordinates == "Exit":
             exit()
         elif len(split_coord) != 2:
-            print("Invalid coordinate entry. Please try again.")
+            print("\nInvalid coordinate entry. Please try again.")
             coordinates = input(("\nEnter two adjacent coordinates"
                                  "for your Destroyer"
                                  ", separated only by a space: "))
@@ -124,3 +124,30 @@ def create_ships(game_array, player_array, player_placements):
     create_battleship(game_array, player_array, player_placements)
     create_cruiser(game_array, player_array, player_placements)
     create_destroyer(game_array, player_array, player_placements)
+    
+def player_move(game_array, player_array, opponent_array, opponent_placements):
+    """Allows a player to enter an attack coordinate."""
+    
+    attack = input("\nEnter the coordinate you'd like to attack:")
+    
+    if opponent_placements.index(attack).isdigit():
+        raw_spot = np.where(game_array == attack)
+        spot = list(zip(raw_spot[0],raw_spot[1]))
+        attack_coordinate = spot[0]
+        
+        if opponent_array[attack_coordinate[0],attack_coordinate[1]] == "BS":
+            print("Success! You've hit your opponent's battleship.")
+        elif opponent_array[attack_coordinate[0],attack_coordinate[1]] == "CR":
+            print("Success! You've hit your opponent's cruiser.")
+        elif opponent_array[attack_coordinate[0],attack_coordinate[1]] == "DT":
+            print("Success! You've hit your opponent's destroyer.")
+            
+        opponent_placements.remove(attack)
+        
+        if not opponent_placements:
+            print("\nCongratulations! You destroyed all your opponent's ships.")
+            print("The game will now shutdown.")
+            exit()
+        else:
+            print("Your opponent only has" + len(opponent_placements) + " spots left.")
+        
