@@ -6,9 +6,9 @@ Created on Sun Sep  8 17:44:53 2019
 @author: Zackerman24
 """
 
-"""Battleship, Cruiser, and Destroyer"""
 """For checking correct coord entry, could make sure entry is in
 A - F and 1-6"""
+"""Shave off extra space on any user input"""
 """Make sure coordinate entries are unique, not duplicative"""
 
 import numpy as np
@@ -22,7 +22,7 @@ def create_battleship(game_array, player_array, player_placements):
     split_coord = coordinates.split()
     
     while True:
-        if coordinates == "Exit":
+        if coordinates.upper() == "EXIT":
             exit()
         elif len(split_coord) != 4:
             print("Invalid coordinate entry. Please try again.")
@@ -57,7 +57,7 @@ def create_cruiser(game_array, player_array, player_placements):
     split_coord = coordinates.split()
     
     while True:
-        if coordinates == "Exit":
+        if coordinates.upper() == "EXIT":
             exit()
         elif len(split_coord) != 3:
             print("Invalid coordinate entry. Please try again.")
@@ -92,7 +92,7 @@ def create_destroyer(game_array, player_array, player_placements):
     split_coord = coordinates.split()
     
     while True:
-        if coordinates == "Exit":
+        if coordinates.upper() == "EXIT":
             exit()
         elif len(split_coord) != 2:
             print("\nInvalid coordinate entry. Please try again.")
@@ -130,30 +130,28 @@ def player_move(game_array, opponent_array, opponent_placements):
     
     attack = input("\nEnter the coordinate you'd like to attack:")
     
-    if attack == "Exit":
+    if attack.upper() == "EXIT":
         exit()
     
 
-    if opponent_placements.index(attack) in range(0,20):
+    if attack in opponent_placements:
         raw_spot = np.where(game_array == attack)
         spot = list(zip(raw_spot[0],raw_spot[1]))
         attack_coordinate = spot[0]
-        
         if opponent_array[attack_coordinate[0],attack_coordinate[1]] == "BS":
-            print("Success! You've hit your opponent's battleship.")
+            print("\nSuccess! You've hit your opponent's battleship.")
         elif opponent_array[attack_coordinate[0],attack_coordinate[1]] == "CR":
-            print("Success! You've hit your opponent's cruiser.")
+            print("\nSuccess! You've hit your opponent's cruiser.")
         elif opponent_array[attack_coordinate[0],attack_coordinate[1]] == "DT":
-            print("Success! You've hit your opponent's destroyer.")
-            
+            print("\nSuccess! You've hit your opponent's destroyer.")
+        else:
+            print("We're not sure what you hit!")           
         opponent_placements.remove(attack)
-        
         if not opponent_placements:
             print("\nCongratulations! You destroyed all your opponent's ships.")
             print("The game will now shutdown.")
             exit()
         else:
-            print("Your opponent only has" + str(len(opponent_placements)) + " spots left.")
-    
+            print("Your opponent only has " + str(len(opponent_placements)) + " spots left.")
     else:
         print("Oops! Your attack did not strike any ships.")
